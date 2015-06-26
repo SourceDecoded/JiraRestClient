@@ -25,6 +25,6 @@
         <tags>Atlassian JIRA REST client</tags>
     </metadata>
     <files>
-        <file src="\TechTalk.JiraRestClient\bin\Release\TechTalk.JiraRestClient.dll" target="lib/net40-Client/" />
+        <file src="\bin\TechTalk.JiraRestClient.dll" target="lib/net40-Client/" />
     </files>
 </package>
