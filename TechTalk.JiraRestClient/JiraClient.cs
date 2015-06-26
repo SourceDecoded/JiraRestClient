@@ -22,7 +22,7 @@ namespace TechTalk.JiraRestClient
         {
             this.username = username;
             this.password = password;
-            
+
             baseApiUrl = new Uri(new Uri(baseUrl), "rest/api/2/").ToString();
             deserializer = new JsonDeserializer();
         }
@@ -88,11 +88,28 @@ namespace TechTalk.JiraRestClient
             var resultCount = 0;
             while (true)
             {
-                var jql = String.Format("project={0}", Uri.EscapeUriString(projectKey));
+                List<String> options = new List<String>();
+
+
+                if (!String.IsNullOrEmpty(projectKey))
+                    options.Add(String.Format("project={0}", Uri.EscapeUriString(projectKey)));
                 if (!String.IsNullOrEmpty(issueType))
-                    jql += String.Format("+AND+issueType={0}", Uri.EscapeUriString(issueType));
+                    options.Add(String.Format("issueType={0}", Uri.EscapeUriString(issueType)));
                 if (!String.IsNullOrEmpty(jqlQuery))
-                    jql += String.Format("+AND+{0}", Uri.EscapeUriString(jqlQuery));
+                    options.Add(String.Format("{0}", Uri.EscapeUriString(jqlQuery)));
+
+                var jql = String.Join("+AND+", options);
+                //int count = 0;
+                //foreach (String option in options)
+                //{
+                //    if(options.Count > 1 && options.Count != count){
+                //        jql += option + "+AND+";
+                //    }else{
+                //        jql += option;
+                //    }
+                //    count += 1;
+                //}
+
                 var path = String.Format("search?jql={0}&startAt={1}&maxResults={2}", jql, resultCount, queryCount);
                 var request = CreateRequest(Method.GET, path);
 
