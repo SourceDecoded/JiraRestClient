@@ -180,8 +180,7 @@ namespace TechTalk.JiraRestClient
                 if (issueFields.timetracking != null)
                     issueData.Add("timetracking", new { originalEstimate = issueFields.timetracking.originalEstimate });
 
-                var propertyList = typeof(TIssueFields).GetProperties().Where(p => p.Name.StartsWith("customfield_"));
-                foreach (var property in propertyList)
+                var propertyList = typeof(TIssueFields).GetProperties().Where(p => p.Name.StartsWith("customfield_"));        foreach (var property in propertyList)
                 {
                     var value = property.GetValue(issueFields, null);
                     if (value != null) issueData.Add(property.Name, value);

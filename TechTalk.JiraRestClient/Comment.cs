@@ -6,5 +6,6 @@ namespace TechTalk.JiraRestClient
     {
         public string id { get; set; }
         public string body { get; set; }
+        public DateTime created { get; set; }
     }
 }
